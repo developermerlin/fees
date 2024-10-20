@@ -37,138 +37,344 @@
 
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+ <!-- ======= Header ======= -->
+ <header id="header" class="header fixed-top d-flex align-items-center">
 
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="{% static 'img1/cusl.png' %}" alt="">
-        <span class="d-none d-lg-block">Fees Mgt System</span>
+  <div class="d-flex align-items-center justify-content-between">
+    <a href="{% url 'main_home' %}" class="logo d-flex align-items-center">
+      <img src="{% static 'img1/cusl.png' %}" alt="">
+      <span class="d-none d-lg-block">Fees Mgt System</span>
+    </a>
+    <i class="bi bi-list toggle-sidebar-btn"></i>
+  </div><!-- End Logo -->
+
+ 
+
+  <nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
+
+      <li class="nav-item d-block d-lg-none">
+        <a class="nav-link nav-icon search-bar-toggle " href="#">
+          <i class="bi bi-search"></i>
+        </a>
+      </li><!-- End Search Icon-->
+
+      
+
+     
+
+      <li class="nav-item dropdown pe-3">
+
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <img src="{% static 'img1/cusl.png' %}" alt="Profile" class="rounded-circle">
+          <span class="d-none d-md-block dropdown-toggle ps-2">{{user}}</span>
+        </a><!-- End Profile Iamge Icon -->
+
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          
+          
+
+         
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'user_logout'%}">
+              <i class="bi bi-box-arrow-right"></i>
+              <span>Sign Out</span>
+            </a>
+          </li>
+
+        </ul><!-- End Profile Dropdown Items -->
+      </li><!-- End Profile Nav -->
+
+    </ul>
+  </nav><!-- End Icons Navigation -->
+
+</header><!-- End Header -->
+
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+  <ul class="sidebar-nav" id="sidebar-nav">
+
+    <li class="nav-item">
+      <a class="nav-link " href="{% url 'main_home' %}">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
+    </li><!-- End Dashboard Nav -->
 
-   
-
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Students</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="{% url 'student' %}">
+            <i class="bi bi-circle"></i><span>All Students</span>
           </a>
-        </li><!-- End Search Icon-->
+        </li>
+        
+       
+       
+       
+      </ul>
+    </li><!-- End Components Nav -->
 
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Departments</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="{% url 'department' %}">
+            <i class="bi bi-circle"></i><span>All Departments</span>
+          </a>
+        </li>
+        
+       
+        <!-- 079400189 -->
+       
+      </ul>
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav1" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Programs</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="{% url 'all_program' %}">
+            <i class="bi bi-circle"></i><span>All Programs</span>
+          </a>
+        </li>
+        
+       
+        <!-- 079400189 -->
+       
+      </ul>
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-journal-text"></i><span>Program Cost</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         
 
+        <!-- computer science -->
+        <div class="btn-group w-100">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            COM SCIENCE
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="{% url 'cs_cost1' %}">
+              <i class="bi bi-circle"></i><span>Year 1 Program Cost</span>
+            </a>
+
+            <a href="{% url 'cs_cost2' %}">
+              <i class="bi bi-circle"></i><span>Year 2 Program Cost</span>
+            </a>
+
+            <a href="{% url 'cs_cost3' %}">
+              <i class="bi bi-circle"></i><span>Year 3 Program Cost</span>
+            </a>
+
+            <a href="{% url 'cs_cost4' %}" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Program Cost</span>
+            </a>
+            
+          </div>
+        </div>
+
+
+
+         <!-- Bit science -->
+         <div class="btn-group w-100 mt-2">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            B.I.T
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 1 Program Cost</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Program Cost</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Program Cost</span>
+            </a>
+
+            <a href="" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Program Cost</span>
+            </a>
+            
+          </div>
+        </div>
+
+
+
+        <!-- SRN -->
+        <div class="btn-group w-100 mt-2">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            NURSING
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 1 Program Cost</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Program Cost</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Program Cost</span>
+            </a>
+
+            <a href="" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Program Cost</span>
+            </a>
+            
+          </div>
+        </div>
        
-
-        <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{% static 'img1/cusl.png' %}" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{user}}</span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            
-            
-
-           
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="{% url 'user_logout'%}">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
       </ul>
-    </nav><!-- End Icons Navigation -->
+      
+    </li><!-- End Forms Nav -->
 
-  </header><!-- End Header -->
 
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
 
-        <ul class="sidebar-nav" id="sidebar-nav">
-    
-          <li class="nav-item">
-            <a class="nav-link " href="{% url 'main_home'%}">
-              <i class="bi bi-grid"></i>
-              <span>Dashboard</span>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-layout-text-window-reverse"></i><span>Fees</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <!-- computer science -->
+        <div class="btn-group w-100">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            COM SCIENCE FEES
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="{% url 'cs_fees1' %}">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
             </a>
-          </li><!-- End Dashboard Nav -->
-    
-          <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-menu-button-wide"></i><span>Students</span><i class="bi bi-chevron-down ms-auto"></i>
+
+            <a href="{% url 'cs_fees2' %}">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
             </a>
-            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a href="{% url 'student' %}">
-                  <i class="bi bi-circle"></i><span>All Students</span>
-                </a>
-              </li>
-              
-             
-              <!-- 079400189 -->
-             
-            </ul>
-          </li><!-- End Components Nav -->
-    
-          <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-journal-text"></i><span>Program Cost</span><i class="bi bi-chevron-down ms-auto"></i>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
             </a>
-            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a href="{% url 'program' %}">
-                  <i class="bi bi-circle"></i><span>All Programs & Cost</span>
-                </a>
-              </li>
-             
-            </ul>
-          </li><!-- End Forms Nav -->
-    
-          <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-layout-text-window-reverse"></i><span>Fees</span><i class="bi bi-chevron-down ms-auto"></i>
+
+            <a href="" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span>
             </a>
-            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a href="">
-                  <i class="bi bi-circle"></i><span>Fees Payment</span>
-                </a>
-              </li>
-              
-            </ul>
-          </li><!-- End Tables Nav -->
-    
-          <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-bar-chart"></i><span>Fees Transaction</span><i class="bi bi-chevron-down ms-auto"></i>
+            
+          </div>
+        </div>
+
+
+
+         <!-- Bit science -->
+         <div class="btn-group w-100 mt-2">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            B.I.T FEES
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
             </a>
-            <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a href="">
-                  <i class="bi bi-circle"></i><span>All Transactions</span>
-                </a>
-              </li>
-            </ul>
-          </li><!-- End Charts Nav -->
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+            </a>
+
+            <a href="" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+            </a>
+            
+          </div>
+        </div>
+
+
+
+        <!-- SRN -->
+        <div class="btn-group w-100 mt-2">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            NURSING FEES
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+            </a>
+
+            <a href="" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+            </a>
+            
+          </div>
+        </div>
+        
+      </ul>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-bar-chart"></i><span>Fees Transaction History</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+        <div class="btn-group w-100">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            COM SCIENCE FEES
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="{% url 'cs1_transaction' %}">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+            </a>
+
+            <a href="" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+            </a>
+            
+          </div>
+        </div>
+      </ul>
+    </li><!-- End Charts Nav -->
+
+ 
     
-       
-    
-        </ul>
-    
-      </aside><!-- End Sidebar-->
+
+  </ul>
+
+</aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
@@ -244,15 +450,11 @@
                   
                 <div class="row mt-4">
                   <div class="col-md-6">
-                    <select name="level" class="form-control shadow-none p-3">
-                      <option value="First Year" {% if student.level == "First Year" %}selected{% endif %}>First Year</option>
-                      <option value="Second Year" {% if student.level == "Second Year" %}selected{% endif %}>Second Year</option>
-                      <option value="Third Year" {% if student.level == "Third Year" %}selected{% endif %}>Third Year</option>
-                      <option value="Final Year" {% if student.level == "Final Year" %}selected{% endif %}>Final Year</option>
-                    </select>
+                    <!-- File input for uploading a new image -->
+                    <label for="file">Upload New Profile Image</label>
+                    <input type="file" name="file" class="form-control shadow-none p-3">
                   </div>
-
-                  <div class="col-md-6">
+                  <div class="col-md-6 mt-4">
                     <input type="text" name="phone" value="{{ student.phone }}" class="form-control shadow-none p-3">
                   </div>
                 </div>
@@ -262,27 +464,18 @@
                     <!-- Profile Image Display -->
                     {% if student.profile %}
                       <label for="profile">Current Profile Image</label><br>
-                      <img src="{{ student.profile.url }}" alt="Profile Image" style="width: 70px; height: 70px; border-radius: 50%;">
+                      <img src="{{ student.profile.url }}" alt="Profile Image" style="width: 140px; height: 140px; border-radius: 50%;">
                     {% else %}
                       <p>No profile image available</p>
                     {% endif %}
                   </div>
 
                   <div class="col-md-6">
-                    <!-- File input for uploading a new image -->
-                    <label for="file">Upload New Profile Image</label>
-                    <input type="file" name="file" class="form-control shadow-none p-3">
-                  </div>
-                </div>
-            
-                 <div class="row mt-4">
-                  <div class="col-md-4 offset-md-3 mb-4">
                     <button class="btn btn-secondary w-100" type="submit"><i class="fas fa-database" style="margin-right: 10px;"></i>Save Changes</button>
                     <a href="{% url 'student' %}" class="btn btn-success w-100 mt-2">Cancel</a>
                   </div>
+                </div>
 
-                 
-                 </div>
               </div>
           
           </form>
@@ -313,7 +506,10 @@
 
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
   <!-- Vendor JS Files -->
   <script src="{% static 'vendor1/apexcharts/apexcharts.min.js' %}"></script>
   <script src="{% static 'vendor1/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

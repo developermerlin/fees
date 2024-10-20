@@ -1,0 +1,638 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <title>Fees Management System</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+  
+    <!-- Favicons -->
+    <link href="{% static 'img1/cusl.png' %}" rel="icon">
+    <link href="{% static 'img1/cusl.png' %}" rel="apple-touch-icon">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'vendor1/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor1/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor1/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor1/quill/quill.snow.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor1/quill/quill.bubble.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor1/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor1/simple-datatables/style.css' %}" rel="stylesheet">
+  
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="{% static 'css1/style.css' %}" rel="stylesheet">
+  
+  
+  </head>
+
+<body>
+
+ <!-- ======= Header ======= -->
+ <header id="header" class="header fixed-top d-flex align-items-center">
+
+  <div class="d-flex align-items-center justify-content-between">
+    <a href="{% url 'main_home' %}" class="logo d-flex align-items-center">
+      <img src="{% static 'img1/cusl.png' %}" alt="">
+      <span class="d-none d-lg-block">Fees Mgt System</span>
+    </a>
+    <i class="bi bi-list toggle-sidebar-btn"></i>
+  </div><!-- End Logo -->
+
+ 
+
+  <nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
+
+      <li class="nav-item d-block d-lg-none">
+        <a class="nav-link nav-icon search-bar-toggle " href="#">
+          <i class="bi bi-search"></i>
+        </a>
+      </li><!-- End Search Icon-->
+
+      
+
+     
+
+      <li class="nav-item dropdown pe-3">
+
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <img src="{% static 'img1/cusl.png' %}" alt="Profile" class="rounded-circle">
+          <span class="d-none d-md-block dropdown-toggle ps-2">{{user}}</span>
+        </a><!-- End Profile Iamge Icon -->
+
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          
+          
+
+         
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'user_logout'%}">
+              <i class="bi bi-box-arrow-right"></i>
+              <span>Sign Out</span>
+            </a>
+          </li>
+
+        </ul><!-- End Profile Dropdown Items -->
+      </li><!-- End Profile Nav -->
+
+    </ul>
+  </nav><!-- End Icons Navigation -->
+
+</header><!-- End Header -->
+
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+  <ul class="sidebar-nav" id="sidebar-nav">
+
+    <li class="nav-item">
+      <a class="nav-link " href="{% url 'main_home' %}">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Students</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="{% url 'student' %}">
+            <i class="bi bi-circle"></i><span>All Students</span>
+          </a>
+        </li>
+        
+       
+       
+       
+      </ul>
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Departments</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="{% url 'department' %}">
+            <i class="bi bi-circle"></i><span>All Departments</span>
+          </a>
+        </li>
+        
+       
+        <!-- 079400189 -->
+       
+      </ul>
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav1" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Programs</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="{% url 'all_program' %}">
+            <i class="bi bi-circle"></i><span>All Programs</span>
+          </a>
+        </li>
+        
+       
+        <!-- 079400189 -->
+       
+      </ul>
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-journal-text"></i><span>Program Cost</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        
+
+        <!-- computer science -->
+        <div class="btn-group w-100">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            COM SCIENCE
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="{% url 'cs_cost1' %}">
+              <i class="bi bi-circle"></i><span>Year 1 Program Cost</span>
+            </a>
+
+            <a href="{% url 'cs_cost2' %}">
+              <i class="bi bi-circle"></i><span>Year 2 Program Cost</span>
+            </a>
+
+            <a href="{% url 'cs_cost3' %}">
+              <i class="bi bi-circle"></i><span>Year 3 Program Cost</span>
+            </a>
+
+            <a href="{% url 'cs_cost4' %}" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Program Cost</span>
+            </a>
+            
+          </div>
+        </div>
+
+
+
+         <!-- Bit science -->
+         <div class="btn-group w-100 mt-2">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            B.I.T
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 1 Program Cost</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Program Cost</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Program Cost</span>
+            </a>
+
+            <a href="" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Program Cost</span>
+            </a>
+            
+          </div>
+        </div>
+
+
+
+        <!-- SRN -->
+        <div class="btn-group w-100 mt-2">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            NURSING
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 1 Program Cost</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Program Cost</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Program Cost</span>
+            </a>
+
+            <a href="" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Program Cost</span>
+            </a>
+            
+          </div>
+        </div>
+       
+      </ul>
+      
+    </li><!-- End Forms Nav -->
+
+
+
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-layout-text-window-reverse"></i><span>Fees</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <!-- computer science -->
+        <div class="btn-group w-100">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            COM SCIENCE FEES
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="{% url 'cs_fees1' %}">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+            </a>
+
+            <a href="{% url 'cs_fees2' %}">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+            </a>
+
+            <a href="" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+            </a>
+            
+          </div>
+        </div>
+
+
+
+         <!-- Bit science -->
+         <div class="btn-group w-100 mt-2">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            B.I.T FEES
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+            </a>
+
+            <a href="" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+            </a>
+            
+          </div>
+        </div>
+
+
+
+        <!-- SRN -->
+        <div class="btn-group w-100 mt-2">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            NURSING FEES
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+            </a>
+
+            <a href="" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+            </a>
+            
+          </div>
+        </div>
+        
+      </ul>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-bar-chart"></i><span>Fees Transaction History</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+        <div class="btn-group w-100">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            COM SCIENCE FEES
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="{% url 'cs1_transaction' %}">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+            </a>
+
+            <a href="" class="w-100">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+            </a>
+            
+          </div>
+        </div>
+      </ul>
+    </li><!-- End Charts Nav -->
+
+ 
+    
+
+  </ul>
+
+</aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="container">
+                <div class="row" style="margin-top: 60px;">
+                    <div class="col-md-12" style="margin-left: 950px;">
+                        <a href="" class="btn btn-outline-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            <span class="ms-1">First Year Fees</span> <!-- Added span with ms-2 -->
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="text-center mt-3">First Year Fees</h2>
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show w-50" role="alert" 
+                        style="position: relative; margin-left: 250px;">
+                        <strong style="margin-left: 140px;">{{ message }}</strong> 
+                        
+                    </div>
+                        
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th style="font-size: 16px; text-align: center;">No</th>
+                    <th style="font-size: 16px; text-align: center;">Student</th>
+                    <th style="font-size: 16px; text-align: center;">Program</th>
+                    <th style="font-size: 16px; text-align: center;">Program Cost</th>
+                    <th style="font-size: 16px; text-align: center;">Amount Paid</th>
+                    <th style="font-size: 16px; text-align: center;">Balance</th>
+                    <!-- <th>Date Paid</th> -->
+                    <th style="font-size: 16px; text-align: center;">Status</th>
+                    <th style="font-size: 16px; text-align: center;">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+               {% for fee1 in fees1 %}
+                  <tr>
+                    
+                    <td style="text-align: center;">{{forloop.counter}}</td>
+                    <td style="font-size: 16px;">{{fee1.student_name}}</td>
+                    <td style="font-size: 16px;">{{fee1.program.program_name}}</td>
+                    <td style="text-align: center; font-size: 16px;">Nle{{fee1.cost_of_program.program_fees}}</td>
+                    <td style="text-align: center; font-size: 16px;">Nle{{fee1.paid_fees}} </td>
+                    <td style="text-align: center; font-size: 16px;">Nle{{fee1.balance}} </td>
+                    <td style="text-align: center; font-size: 16px;">{{fee1.payment_status}}</td>
+                    <td>
+                      <a href="{% url 'edit_cs_fees1' fee1.id %}">
+                        <i class="fas fa-pen" style="color: rgb(5, 94, 43);"></i>
+                      </a>
+                      <a href="{% url 'view_cs_fees1' fee1.id %}">
+                        <i class="fas fa-eye" style="color: rgb(33, 6, 115); margin-left: 7px;"></i> 
+                    </a>
+
+                    </td>
+                    
+                  </tr>
+
+                {% endfor %}
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg"> 
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Add Student Fees</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="contain">
+                      <form method="post" enctype="multipart/form-data" id="paymentForm">  
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="number" class="form-control shadow-none p-3" name="id_number" placeholder="ID Number" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control shadow-none p-3" name="student_name" placeholder="Student Name" required>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <select class="form-control shadow-none p-3" name="level" required>
+                                    <option value="">Level</option>
+                                    <option value="First Year">First Year</option>
+                                </select>                            
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control shadow-none p-3" name="department" required>
+                                    <option value="">Select Department</option>
+                                    {% for department in departments %}
+                                        <option value="{{ department.id }}">{{ department.department_name }}</option>
+                                    {% endfor %}
+                                </select>                             
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <select class="form-control shadow-none p-3" name="program" required>
+                                    <option value="">Select Program of Study</option>
+                                    {% for program in all_programs %}
+                                        <option value="{{ program.id }}">{{ program.program_name }}</option>
+                                    {% endfor %}
+                                </select>                            
+                            </div>
+                            <div class="col-md-6">
+                              <select class="form-control shadow-none p-3" name="cost_of_program" required>
+                                <option value="">Select Cost of Program</option>
+                                {% for fee1 in cs_cost1 %}
+                                    <option value="{{ fee1.id }}">Nle{{ fee1.program_fees }}</option>
+                                {% endfor %}
+                            </select>                             
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6" style="margin-top: 10px;">
+                                <input type="number" class="form-control shadow-none p-3" name="amount_paid" placeholder="Amount of fees Paid" required>
+                            </div>
+                            <div class="col-md-6" style="margin-top: 10px;">
+                              <input type="text" class="form-control shadow-none p-3" name="sum_of" placeholder="Amount of fees Paid in words" required>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <small>Upload First Payment Slip</small>
+                                <input class="form-control shadow-none p-3" name="payment_slip" type="file" id="formFile" required>
+                            </div>
+
+                            <div class="col-md-6">
+                              <small>Upload Second Payment Slip</small>
+                              <input class="form-control shadow-none p-3" name="payment_slip" type="file" id="formFile">
+                          </div>
+
+                        </div>
+
+
+                        <div class="row mt-3">
+                          <div class="col-md-6">
+                            
+                              <small style="font-size: 10px;">First Payment Date</small>
+                              <input type="date" id="payment_date" class="form-control shadow-none p-3" name="payment_date">
+                          
+                          
+                          <script>
+                              // Get today's date in the format YYYY-MM-DD
+                              var today = new Date().toISOString().split('T')[0];
+                          
+                              // Set the max attribute to today's date
+                              document.getElementById("payment_date").setAttribute('max', today);
+                          </script>
+                          </div>
+
+
+                          <div class="col-md-6">
+                            
+                              <small style="font-size: 10px;">Second Payment Date</small>
+                              <input type="date" id="second_payment_date" class="form-control shadow-none p-3" name="second_payment_date">
+                          
+                          
+                          <script>
+                              // Get today's date in the format YYYY-MM-DD
+                              var today = new Date().toISOString().split('T')[0];
+                          
+                              // Set the max attribute to today's date
+                              document.getElementById("second_payment_date").setAttribute('max', today);
+                          </script>
+                          </div>
+
+                          
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 mt-4">
+                          <select class="form-control shadow-none p-3" name="payment_status" required>
+                              <option value="">Payment Status</option>
+                              <option value="Paid Full">Paid Full</option>
+                              <option value="Incomplete Fees">Incomplete Fees</option>
+                          </select>
+                      </div>
+                      </div>
+
+                     
+                        <div class="modal-footer mt-3">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3">
+                                        <button type="submit" class="btn btn-outline-secondary mt-3 w-100">
+                                            <i class="fas fa-database"></i> Save Fees Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    
+                    
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor1/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'vendor1/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor1/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'vendor1/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'vendor1/quill/quill.js' %}"></script>
+  <script src="{% static 'vendor1/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'vendor1/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'vendor1/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js1/main.js' %}"></script>
+  <script>
+    setTimeout(function() {
+        const alert = document.querySelector('.alert');
+        if (alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(function() {
+                alert.remove();
+            }, 150); // Adjust this timing as needed
+        }
+    }, 2000); // Time in milliseconds before the alert disappears (e.g., 3000ms = 3 seconds)
+</script>
+</body>
+
+</html>
