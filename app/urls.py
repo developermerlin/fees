@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
     path('', views.first_home, name='first_home'),
     path('main_home/', views.main_home, name='main_home'),
+    path('main_second_home/', views.main_second_home, name='main_second_home'),
+    
     path('student/', views.student, name='student'),
     path('edit_student/<int:student_id>/', views.edit_student, name='edit_student'),
     path('delete_student/<int:student_id>/', views.delete_student, name='delete_student'),
@@ -39,12 +41,30 @@ urlpatterns = [
     path('view_cs_fees1/<int:fee_id>/', views.view_cs_fees1, name='view_cs_fees1'),
 
     path('cs_fees2/', views.cs_fees2, name='cs_fees2'),
-    # path('cs_fees1/<int:fee_id>/', views.edit_cs_fees1, name='edit_cs_fees1'),
-    # path('view_cs_fees1/<int:fee_id>/', views.view_cs_fees1, name='view_cs_fees1'),
+    path('cs_fees2/<int:fee_id>/', views.edit_cs_fees2, name='edit_cs_fees2'),
+    path('view_cs_fees2/<int:fee_id>/', views.view_cs_fees2, name='view_cs_fees2'),
+
+    path('cs_fees3/', views.cs_fees3, name='cs_fees3'),
+    path('cs_fees3/<int:fee_id>/', views.edit_cs_fees3, name='edit_cs_fees3'),
+    path('view_cs_fees3/<int:fee_id>/', views.view_cs_fees3, name='view_cs_fees3'),
+
+    path('cs_fees4/', views.cs_fees4, name='cs_fees4'),
+    path('cs_fees4/<int:fee_id>/', views.edit_cs_fees4, name='edit_cs_fees4'),
+    path('view_cs_fees4/<int:fee_id>/', views.view_cs_fees4, name='view_cs_fees4'),
 
     path('cs1_transaction/', views.cs1_transaction, name='cs1_transaction'),
     path('view_cs1_transaction/<int:trans_id>/', views.view_cs1_transaction, name='view_cs1_transaction'),
 
+    path('cs2_transaction/', views.cs2_transaction, name='cs2_transaction'),
+    path('view_cs2_transaction/<int:trans_id>/', views.view_cs2_transaction, name='view_cs2_transaction'),
 
-    
+    path('cs3_transaction/', views.cs3_transaction, name='cs3_transaction'),
+    path('view_cs3_transaction/<int:trans_id>/', views.view_cs3_transaction, name='view_cs3_transaction'),
+
+    path('cs4_transaction/', views.cs4_transaction, name='cs4_transaction'),
+    path('view_cs4_transaction/<int:trans_id>/', views.view_cs4_transaction, name='view_cs4_transaction'),
+
+
+        path('cs1_fees_status/', views.cs1_fees_status, name='cs1_fees_status'),
+
 ]

@@ -296,11 +296,11 @@
                 <i class="bi bi-circle"></i><span>Year 2 Fees</span>
               </a>
 
-              <a href="">
+              <a href="{% url 'cs_fees3' %}">
                 <i class="bi bi-circle"></i><span>Year 3 Fees</span>
               </a>
 
-              <a href="" class="w-100">
+              <a href="{% url 'cs_fees4' %}">
                 <i class="bi bi-circle"></i><span>Year 4 Fees</span>
               </a>
               
@@ -379,15 +379,15 @@
                 <i class="bi bi-circle"></i><span>Year 1 Fees</span>
               </a>
 
-              <a href="">
+              <a href="{% url 'cs2_transaction' %}">
                 <i class="bi bi-circle"></i><span>Year 2 Fees</span>
               </a>
 
-              <a href="">
+              <a href="{% url 'cs3_transaction' %}">
                 <i class="bi bi-circle"></i><span>Year 3 Fees</span>
               </a>
 
-              <a href="" class="w-100">
+              <a href="{% url 'cs4_transaction' %}">
                 <i class="bi bi-circle"></i><span>Year 4 Fees</span>
               </a>
               
@@ -449,11 +449,14 @@
                       <img src="{{ trans1_record.payment_slip.url }}" alt="Profile Image" style="width: 300px; height: 200px; margin-left: 100px;">
                                     
                     </div>
-                <div class="col-md-6">
-                  
-                  <img src="{{ trans1_record.second_payment_slip.url }}" alt="Profile Image" style="width: 300px; height: 200px; margin-left: 100px;">
-                               
-                </div>
+                  <div class="col-md-6">
+                    {% if trans1_record.second_payment_slip %}
+                    <img src="{{ trans1_record.second_payment_slip.url }}" alt="Profile Image" style="width: 300px; height: 200px; margin-left: 100px;">
+                    {% else %}
+                        <p>No second payment slip uploaded.</p>
+                    {% endif %}
+        
+                  </div>
               </div>
             </div>
 

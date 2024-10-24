@@ -139,9 +139,6 @@ class CS_Fees1(models.Model):
         return f"{self.student_name} - {self.program.program_name} - Paid Fees: {self.paid_fees} - Balance: {self.balance()}"
 
 
-
-
-
 class CS_Fees2(models.Model):
     student_name = models.CharField(max_length=100)
     id_number = models.CharField(max_length=20)
@@ -157,6 +154,99 @@ class CS_Fees2(models.Model):
     payment_date = models.DateField(null=True)
     second_payment_date = models.DateField(null=True, blank=True)  
     cost_of_program = models.ForeignKey(CS_Cost2, on_delete=models.CASCADE, related_name='cs_fees2_cost_of_program_payments')  # Updated related_name
+    paid_fees = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  
+    payment_slip = models.FileField(upload_to='payment_slips/', blank=True, null=True)
+    second_payment_slip = models.FileField(upload_to='payment_slips/', blank=True, null=True)
+    payment_status = models.CharField(max_length=20, choices=[
+        ('Paid Full', 'Paid Full'),
+        ('Incomplete Fees', 'Incomplete Fees'),
+    ])
+
+    def save(self, *args, **kwargs):
+        if not self.receipt_no:  # Generate receipt_no if not provided
+            current_year = timezone.now().year  
+            super().save(*args, **kwargs)  
+            self.receipt_no = f"{current_year}-{self.pk}"  
+        super().save(*args, **kwargs)
+
+    def balance(self):
+        """Calculate the remaining balance as the cost of the program minus the total paid fees."""
+        return Decimal(self.cost_of_program.program_fees) - self.paid_fees
+
+    def add_payment(self, new_payment, payment_slip=None):
+        """Add a new payment, update the cumulative paid fees, and recalculate the balance."""
+        self.paid_fees += Decimal(new_payment)  # Add new payment to cumulative paid fees
+        self.amount_paid = Decimal(new_payment)  # Store the latest payment
+        if payment_slip:
+            self.payment_slip = payment_slip  # Save the payment slip if provided
+        self.save()
+
+    def __str__(self):
+        return f"{self.student_name} - {self.program.program_name} - Paid Fees: {self.paid_fees} - Balance: {self.balance()}"
+    
+
+class CS_Fees3(models.Model):
+    student_name = models.CharField(max_length=100)
+    id_number = models.CharField(max_length=20)
+    program = models.ForeignKey(Programs, on_delete=models.CASCADE, related_name='cs_fees3_programs')  # Added related_name to avoid clash
+    program_details = models.ForeignKey(Programs, on_delete=models.CASCADE, related_name='cs_fees3_program_details', null=True, blank=True)  # Updated related_name
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='cs_fees3_departments')  # Added related_name to avoid clash
+    sum_of = models.CharField(max_length=200)
+    paid_for = models.CharField(max_length=200, default='Tuition Fees')
+    check_no = models.BigIntegerField(null=True, blank=True)  
+    receipt_no = models.CharField(max_length=20, unique=True, blank=True) 
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2)  
+    level = models.CharField(max_length=20, choices=LEVEL1)
+    payment_date = models.DateField(null=True)
+    second_payment_date = models.DateField(null=True, blank=True)  
+    cost_of_program = models.ForeignKey(CS_Cost3, on_delete=models.CASCADE, related_name='cs_fees3_cost_of_program_payments')  # Updated related_name
+    paid_fees = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  
+    payment_slip = models.FileField(upload_to='payment_slips/', blank=True, null=True)
+    second_payment_slip = models.FileField(upload_to='payment_slips/', blank=True, null=True)
+    payment_status = models.CharField(max_length=20, choices=[
+        ('Paid Full', 'Paid Full'),
+        ('Incomplete Fees', 'Incomplete Fees'),
+    ])
+
+    def save(self, *args, **kwargs):
+        if not self.receipt_no:  # Generate receipt_no if not provided
+            current_year = timezone.now().year  
+            super().save(*args, **kwargs)  
+            self.receipt_no = f"{current_year}-{self.pk}"  
+        super().save(*args, **kwargs)
+
+    def balance(self):
+        """Calculate the remaining balance as the cost of the program minus the total paid fees."""
+        return Decimal(self.cost_of_program.program_fees) - self.paid_fees
+
+    def add_payment(self, new_payment, payment_slip=None):
+        """Add a new payment, update the cumulative paid fees, and recalculate the balance."""
+        self.paid_fees += Decimal(new_payment)  # Add new payment to cumulative paid fees
+        self.amount_paid = Decimal(new_payment)  # Store the latest payment
+        if payment_slip:
+            self.payment_slip = payment_slip  # Save the payment slip if provided
+        self.save()
+
+    def __str__(self):
+        return f"{self.student_name} - {self.program.program_name} - Paid Fees: {self.paid_fees} - Balance: {self.balance()}"
+    
+
+
+class CS_Fees4(models.Model):
+    student_name = models.CharField(max_length=100)
+    id_number = models.CharField(max_length=20)
+    program = models.ForeignKey(Programs, on_delete=models.CASCADE, related_name='cs_fees4_programs')  # Added related_name to avoid clash
+    program_details = models.ForeignKey(Programs, on_delete=models.CASCADE, related_name='cs_fees4_program_details', null=True, blank=True)  # Updated related_name
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='cs_fees4_departments')  # Added related_name to avoid clash
+    sum_of = models.CharField(max_length=200)
+    paid_for = models.CharField(max_length=200, default='Tuition Fees')
+    check_no = models.BigIntegerField(null=True, blank=True)  
+    receipt_no = models.CharField(max_length=20, unique=True, blank=True) 
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2)  
+    level = models.CharField(max_length=20, choices=LEVEL1)
+    payment_date = models.DateField(null=True)
+    second_payment_date = models.DateField(null=True, blank=True)  
+    cost_of_program = models.ForeignKey(CS_Cost4, on_delete=models.CASCADE, related_name='cs_fees4_cost_of_program_payments')  # Updated related_name
     paid_fees = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  
     payment_slip = models.FileField(upload_to='payment_slips/', blank=True, null=True)
     second_payment_slip = models.FileField(upload_to='payment_slips/', blank=True, null=True)
