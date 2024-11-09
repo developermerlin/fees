@@ -1,0 +1,292 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <title>Fees Management System</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+  
+    <!-- Favicons -->
+    <link href="{% static 'img1/cusl.png' %}" rel="icon">
+    <link href="{% static 'img1/cusl.png' %}" rel="apple-touch-icon">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'vendor1/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor1/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor1/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor1/quill/quill.snow.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor1/quill/quill.bubble.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor1/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor1/simple-datatables/style.css' %}" rel="stylesheet">
+  
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="{% static 'css1/style.css' %}" rel="stylesheet">
+  
+  
+  </head>
+
+<body>
+
+ <!-- ======= Header ======= -->
+ <header id="header" class="header fixed-top d-flex align-items-center">
+
+  <div class="d-flex align-items-center justify-content-between">
+    <a href="{% url 'main_home' %}" class="logo d-flex align-items-center">
+      <img src="{% static 'img1/cusl.png' %}" alt="">
+      <span class="d-none d-lg-block">Fees Mgt System</span>
+    </a>
+    <i class="bi bi-list toggle-sidebar-btn"></i>
+  </div><!-- End Logo -->
+
+ 
+
+  <nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
+
+      <li class="nav-item d-block d-lg-none">
+        <a class="nav-link nav-icon search-bar-toggle " href="#">
+          <i class="bi bi-search"></i>
+        </a>
+      </li><!-- End Search Icon-->
+
+      
+
+     
+
+      <li class="nav-item dropdown pe-3">
+
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <img src="{% static 'img1/cusl.png' %}" alt="Profile" class="rounded-circle">
+          <span class="d-none d-md-block dropdown-toggle ps-2">{{user}}</span>
+        </a><!-- End Profile Iamge Icon -->
+
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          
+          
+
+         
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'user_logout'%}">
+              <i class="bi bi-box-arrow-right"></i>
+              <span>Sign Out</span>
+            </a>
+          </li>
+
+        </ul><!-- End Profile Dropdown Items -->
+      </li><!-- End Profile Nav -->
+
+    </ul>
+  </nav><!-- End Icons Navigation -->
+
+</header><!-- End Header -->
+
+<aside id="sidebar" class="sidebar">
+
+  <ul class="sidebar-nav" id="sidebar-nav">
+
+    <li class="nav-item">
+      <a class="nav-link " href="{% url 'main_home' %}">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav1" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-bar-chart"></i><span>Fees Transaction History</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+        <div class="btn-group w-100">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            COM SCIENCE FEES
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="{% url 'admin_cs1_transaction' %}">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+            </a>
+
+            <a href="{% url 'admin_cs2_transaction' %}">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+            </a>
+
+            <a href="{% url 'admin_cs3_transaction' %}">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+            </a>
+
+            <a href="{% url 'admin_cs4_transaction' %}">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+            </a>
+            
+          </div>
+        </div>
+      </ul>
+    </li><!-- End Charts Nav -->
+
+
+
+
+
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-bar-chart"></i><span>Student Fees Status</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+        <div class="btn-group w-100">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            COM SCIENCE FEES
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="{% url 'cs_fees_status' %}">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+            </a>
+            
+          </div>
+        </div>
+      </ul>
+    </li><!-- End Charts Nav -->
+
+ 
+    
+
+  </ul>
+
+</aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+          
+            
+            <h2 class="text-center mt-5 mb-5">CS YEAR FOUR (4) FEES TRANSACTION HISTORY</h2>
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show w-50" role="alert" 
+                        style="position: relative; margin-left: 250px;">
+                        <strong style="margin-left: 140px;">{{ message }}</strong> 
+                        
+                    </div>
+                        
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th style="font-size: 16px; text-align: center;">No</th>
+                    <th style="font-size: 16px; text-align: center;">Student</th>
+                    <th style="font-size: 16px; text-align: center;">Program</th>
+                    <th style="font-size: 16px; text-align: center;">Program Cost</th>
+                    <th style="font-size: 16px; text-align: center;">Amount Paid</th>
+                    <th style="font-size: 16px; text-align: center;">Balance</th>
+                    <!-- <th>Date Paid</th> -->
+                    <th style="font-size: 16px; text-align: center;">Status</th>
+                    <th style="font-size: 16px; text-align: center;">View</th>
+                  </tr>
+                </thead>
+                <tbody>
+               {% for fee4 in fees4 %}
+                  <tr>
+                    
+                    <td style="text-align: center;">{{forloop.counter}}</td>
+                    <td style="font-size: 18px;">{{fee4.student_name}}</td>
+                    <td style="font-size: 18px;">{{fee4.program.program_name}}</td>
+                    <td style="text-align: center; font-size: 18px;">Nle{{fee4.cost_of_program.program_fees}}</td>
+                    <td style="text-align: center; font-size: 18px;">Nle{{fee4.paid_fees}} </td>
+                    <td style="text-align: center; font-size: 18px;">Nle{{fee4.balance}} </td>
+                    <td style="text-align: center; font-size: 18px;">{{fee4.payment_status}}</td>
+                    <td>
+                     
+                      <a href="{% url 'view_admin_cs4_transaction' fee4.id %}">
+                        <i class="fas fa-eye" style="color: rgb(33, 6, 115); margin-left: 20px;"></i> 
+                    </a>
+
+                    </td>
+                    
+                  </tr>
+
+                {% endfor %}
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+
+  
+
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor1/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'vendor1/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor1/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'vendor1/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'vendor1/quill/quill.js' %}"></script>
+  <script src="{% static 'vendor1/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'vendor1/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'vendor1/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js1/main.js' %}"></script>
+  <script>
+    setTimeout(function() {
+        const alert = document.querySelector('.alert');
+        if (alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(function() {
+                alert.remove();
+            }, 150); // Adjust this timing as needed
+        }
+    }, 2000); // Time in milliseconds before the alert disappears (e.g., 3000ms = 3 seconds)
+</script>
+</body>
+
+</html>

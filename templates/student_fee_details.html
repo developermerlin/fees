@@ -1,0 +1,307 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Fees Management System</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img1/cusl.png' %}" rel="icon">
+  <link href="{% static 'img1/cusl.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="}https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor1/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor1/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor1/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor1/quill/quill.snow.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor1/quill/quill.bubble.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor1/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor1/simple-datatables/style.css' %}" rel="stylesheet">
+
+
+  <link href="{% static 'css1/style.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+ <!-- ======= Header ======= -->
+ <header id="header" class="header fixed-top d-flex align-items-center">
+
+  <div class="d-flex align-items-center justify-content-between">
+    <a href="{% url 'main_home' %}" class="logo d-flex align-items-center">
+      <img src="{% static 'img1/cusl.png' %}" alt="">
+      <span class="d-none d-lg-block">Fees Mgt System</span>
+    </a>
+    <i class="bi bi-list toggle-sidebar-btn"></i>
+  </div><!-- End Logo -->
+
+ 
+
+  <nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
+
+      <li class="nav-item d-block d-lg-none">
+        <a class="nav-link nav-icon search-bar-toggle " href="#">
+          <i class="bi bi-search"></i>
+        </a>
+      </li><!-- End Search Icon-->
+
+      
+
+     
+
+      <li class="nav-item dropdown pe-3">
+
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <img src="{% static 'img1/cusl.png' %}" alt="Profile" class="rounded-circle">
+          <span class="d-none d-md-block dropdown-toggle ps-2">{{user}}</span>
+        </a><!-- End Profile Iamge Icon -->
+
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          
+          
+
+         
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{% url 'user_logout'%}">
+              <i class="bi bi-box-arrow-right"></i>
+              <span>Sign Out</span>
+            </a>
+          </li>
+
+        </ul><!-- End Profile Dropdown Items -->
+      </li><!-- End Profile Nav -->
+
+    </ul>
+  </nav><!-- End Icons Navigation -->
+
+</header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'main_home' %}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav1" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>Fees Transaction History</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+          <div class="btn-group w-100">
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              COM SCIENCE FEES
+            </button>
+            <div class="dropdown-menu dropdown-menu-right w-100">
+              <a href="{% url 'cs1_transaction' %}">
+                <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+              </a>
+
+              <a href="{% url 'cs2_transaction' %}">
+                <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+              </a>
+
+              <a href="{% url 'cs3_transaction' %}">
+                <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+              </a>
+
+              <a href="{% url 'cs4_transaction' %}">
+                <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+              </a>
+              
+            </div>
+          </div>
+        </ul>
+      </li><!-- End Charts Nav -->
+
+
+
+
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>Student Fees Status</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+          <div class="btn-group w-100">
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              COM SCIENCE FEES
+            </button>
+            <div class="dropdown-menu dropdown-menu-right w-100">
+              <a href="{% url 'cs_fees_status' %}">
+                <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+              </a>
+
+              <a href="">
+                <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+              </a>
+
+              <a href="">
+                <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+              </a>
+
+              <a href="">
+                <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+              </a>
+              
+            </div>
+          </div>
+        </ul>
+      </li><!-- End Charts Nav -->
+
+   
+      
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+  
+
+    <div class="card" style="width: 90%">
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <h1 style="text-align: center; margin-top: 20px;">FEE DETAILS OF STUDENTS</h1>
+            <h2 style="text-align: center; margin-top: 20px;">Name of Student: {{ student_name }}</h2>
+          </div>
+    
+          <div class="row" style="margin-top: 50px; margin-left: 100px;">
+            {% for year, fees in fee_details %}
+              <div class="col-6 mb-4">
+                <h3>{{ year }}</h3>
+                {% if fees.exists %}
+                  <ul class="list-unstyled">
+                    {% for fee in fees %}
+                      <li>
+                        <strong>Program:</strong><span style="font-size: 20px;">{{ fee.program.program_name }}</span><br>
+                        <strong>Cost of Program:</strong><span style="font-size: 20px;">Nle {{ fee.cost_of_program.program_fees }}</span> <br>
+                        <strong>Amount Paid:</strong><span style="font-size: 20px;">Nle {{ fee.amount_paid }}</span> <br>
+                        <strong>Payment Date:</strong><span style="font-size: 20px;">{{ fee.payment_date }}</span> <br>
+                        <strong>Payment Status:</strong><span style="font-size: 20px;">{{ fee.payment_status }}</span> <br>
+                        <strong>Balance:</strong><span style="font-size: 20px;">Nle {{ fee.balance }}</span>
+                      </li>
+                      <hr> <!-- Add a horizontal line between fees if there are multiple records -->
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <p>No fee records for this year.</p>
+                {% endif %}
+              </div>
+            {% endfor %}
+
+            <h3 style="margin-left: 100px; font-weight: bold; margin-bottom: 30px;">Total Balance to be Paid: Nle {{ total_balance }}</h3>
+
+          </div>
+    
+          <!-- Hidden print button after printing -->
+          <div class="row">
+            <div class="col-md-6 offset-md-3 ">
+              <button class="btn btn-success w-100" id="printBtn">Print Fees Details</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      // Function to handle printing the card content
+      document.getElementById('printBtn').addEventListener('click', function() {
+        // Remove the print button before printing
+        var printButton = document.getElementById('printBtn');
+        printButton.style.display = 'none';  // Hide the print button
+    
+        // Create a new window for printing
+        var printWindow = window.open('', '', 'height=600,width=800');
+    
+        // Get the content of the card
+        var cardContent = document.querySelector('.card').innerHTML;
+    
+        // Get the styles from the current page (to keep them intact)
+        var pageStyles = '';
+        var allStyles = document.querySelectorAll('link[rel="stylesheet"], style');
+        allStyles.forEach(function(style) {
+          pageStyles += style.outerHTML;
+        });
+    
+        // Write the content to the print window
+        printWindow.document.write('<html><head><title>Fee Details</title>');
+        printWindow.document.write(pageStyles);  // Add the styles from the current page
+        printWindow.document.write('</head><body>');
+        printWindow.document.write(cardContent); // Write the card content
+        printWindow.document.write('</body></html>');
+    
+        // Close the document and trigger the print dialog
+        printWindow.document.close();
+        printWindow.print();
+    
+        // Re-add the print button after printing
+        printButton.style.display = 'block';  // Show the print button again
+      });
+    </script>
+    
+    
+
+   
+        
+    
+        
+    
+    
+    
+
+   
+  </main><!-- End #main -->
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor1/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'vendor1/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor1/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'vendor1/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'vendor1/quill/quill.js' %}"></script>
+  <script src="{% static 'vendor1/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'vendor1/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'vendor1/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js1/main.js' %}"></script>
+
+</body>
+
+</html>

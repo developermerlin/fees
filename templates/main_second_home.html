@@ -15,7 +15,7 @@
   <link href="{% static 'img1/cusl.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="}https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
@@ -117,19 +117,19 @@
               COM SCIENCE FEES
             </button>
             <div class="dropdown-menu dropdown-menu-right w-100">
-              <a href="{% url 'cs1_transaction' %}">
+              <a href="{% url 'admin_cs1_transaction' %}">
                 <i class="bi bi-circle"></i><span>Year 1 Fees</span>
               </a>
 
-              <a href="{% url 'cs2_transaction' %}">
+              <a href="{% url 'admin_cs2_transaction' %}">
                 <i class="bi bi-circle"></i><span>Year 2 Fees</span>
               </a>
 
-              <a href="{% url 'cs3_transaction' %}">
+              <a href="{% url 'admin_cs3_transaction' %}">
                 <i class="bi bi-circle"></i><span>Year 3 Fees</span>
               </a>
 
-              <a href="{% url 'cs4_transaction' %}">
+              <a href="{% url 'admin_cs4_transaction' %}">
                 <i class="bi bi-circle"></i><span>Year 4 Fees</span>
               </a>
               
@@ -154,7 +154,7 @@
               COM SCIENCE FEES
             </button>
             <div class="dropdown-menu dropdown-menu-right w-100">
-              <a href="{% url 'cs1_fees_status' %}">
+              <a href="{% url 'cs_fees_status' %}">
                 <i class="bi bi-circle"></i><span>Year 1 Fees</span>
               </a>
 
@@ -175,7 +175,70 @@
         </ul>
       </li><!-- End Charts Nav -->
 
-   
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav3" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>Student Fees Report</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav3" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+          <div class="btn-group w-100">
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              COM SCIENCE FEES
+            </button>
+            <div class="dropdown-menu dropdown-menu-right w-100">
+              <a href="{% url 'student_fee_report' %}">
+                <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+              </a>
+
+              <a href="">
+                <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+              </a>
+
+              <a href="">
+                <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+              </a>
+
+              <a href="">
+                <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+              </a>
+              
+            </div>
+          </div>
+        </ul>
+      </li><!-- End Charts Nav -->
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav3" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>Student Fees Report</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav3" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+          <div class="btn-group w-100">
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              COM SCIENCE FEES
+            </button>
+            <div class="dropdown-menu dropdown-menu-right w-100">
+              <a href="{% url 'fee_status_report' %}">
+                <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+              </a>
+
+              <a href="">
+                <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+              </a>
+
+              <a href="">
+                <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+              </a>
+
+              <a href="">
+                <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+              </a>
+              
+            </div>
+          </div>
+        </ul>
+      </li><!-- End Charts Nav -->
       
 
     </ul>

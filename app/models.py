@@ -87,12 +87,6 @@ class Student(models.Model):
         return self.student_name
 
 
-
-
-
-
-
-
 class CS_Fees1(models.Model):
     student_name = models.CharField(max_length=100)
     id_number = models.CharField(max_length=20)
@@ -276,3 +270,22 @@ class CS_Fees4(models.Model):
 
     def __str__(self):
         return f"{self.student_name} - {self.program.program_name} - Paid Fees: {self.paid_fees} - Balance: {self.balance()}"
+    
+
+
+
+
+    from django.db import models
+
+
+class CS_Fees(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="fees")
+    year = models.IntegerField(choices=[(1, 'Year 1'), (2, 'Year 2'), (3, 'Year 3'), (4, 'Year 4')])
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
+    paid_fees = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    payment_date = models.DateField(null=True, blank=True)
+    payment_status = models.CharField(max_length=20, choices=[('Paid Full', 'Paid Full'), ('Incomplete', 'Incomplete')])
+
+    def balance(self):
+        # Assume program fees is accessible and defined for calculation
+        return self.cost_of_program.program_fees - self.paid_fees

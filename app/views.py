@@ -1,14 +1,17 @@
 
 from django.shortcuts import render, redirect # type: ignore
-from .models import Student, Department, CS_Cost1, CS_Cost2, CS_Cost3, CS_Cost4,Programs,CS_Fees1,CS_Fees2,CS_Fees3,CS_Fees4
+from .models import Student, Department, CS_Cost1, CS_Cost2, CS_Cost3, CS_Cost4,Programs,CS_Fees1,CS_Fees2,CS_Fees3,CS_Fees4,CS_Fees
 from django.shortcuts import get_object_or_404 # type: ignore
 from django.contrib import messages # type: ignore
 from django.http import JsonResponse # type: ignore
 from decimal import Decimal
+from django.db.models import Sum
 from django.utils import timezone # type: ignore
 from django.core.exceptions import ValidationError # type: ignore
 from django.utils.dateparse import parse_date # type: ignore
 from django.utils.dateparse import parse_date # type: ignore
+import logging
+
 
 def first_home(request):
     return render(request, 'first_home.html')
@@ -677,8 +680,6 @@ def edit_cs_fees1(request, fee_id):
         'all_programs': all_programs,
     })
 
-
-
 def view_cs_fees1(request, fee_id):
     # Get the fee record by ID
     fee_record = get_object_or_404(CS_Fees1, id=fee_id)
@@ -1302,5 +1303,225 @@ def view_cs4_transaction(request, trans_id):
 
 # ===============CS1 FEES STATUS=================
 
-def cs1_fees_status(request):
-    return render(request, 'cs1_fees_status.html')
+def cs_fees_status(request):
+    student_records = CS_Fees1.objects.all()
+
+    # Use a set to track unique student IDs and collect unique student records
+    unique_students = []
+    seen_ids = set()
+    for record in student_records:
+        if record.id_number not in seen_ids:
+            unique_students.append({
+                'student_name': record.student_name,
+                'id_number': record.id_number,
+            })
+            seen_ids.add(record.id_number)  # Mark this student as seen
+
+    context = {'students': unique_students}
+    return render(request, 'cs_fees_status.html',context)
+
+
+
+
+# ===============================auditor======================================
+def admin_cs1_transaction(request):
+    fees1 = CS_Fees1.objects.all()
+    return render(request, 'admin_cs1_transaction.html', {'fees1':fees1})
+
+def admin_cs2_transaction(request):
+    fees2 = CS_Fees2.objects.all()
+    return render(request, 'admin_cs2_transaction.html', {'fees2':fees2})
+
+def admin_cs3_transaction(request):
+    fees3 = CS_Fees3.objects.all()
+    return render(request, 'admin_cs3_transaction.html', {'fees3':fees3})
+
+def admin_cs4_transaction(request):
+    fees4 = CS_Fees4.objects.all()
+    return render(request, 'admin_cs4_transaction.html', {'fees4':fees4})
+
+
+
+def view_admin_cs1_transaction(request, trans_id):
+    # Get the fee record by ID
+    trans1_record = get_object_or_404(CS_Fees1, id=trans_id)
+    current_date = timezone.now().date()
+    # Render the fee detail template
+    return render(request, 'view_admin_cs1_transaction.html', {
+        'trans1_record': trans1_record,
+        'current_date': current_date,
+    })
+
+def view_admin_cs2_transaction(request, trans_id):
+    # Get the fee record by ID
+    trans2_record = get_object_or_404(CS_Fees2, id=trans_id)
+    current_date = timezone.now().date()
+    # Render the fee detail template
+    return render(request, 'view_admin_cs2_transaction.html', {
+        'trans2_record': trans2_record,
+        'current_date': current_date,
+    })
+
+def view_admin_cs3_transaction(request, trans_id):
+    # Get the fee record by ID
+    trans3_record = get_object_or_404(CS_Fees3, id=trans_id)
+    current_date = timezone.now().date()
+    # Render the fee detail template
+    return render(request, 'view_admin_cs3_transaction.html', {
+        'trans3_record': trans3_record,
+        'current_date': current_date,
+    })
+
+def view_admin_cs4_transaction(request, trans_id):
+    # Get the fee record by ID
+    trans4_record = get_object_or_404(CS_Fees4, id=trans_id)
+    current_date = timezone.now().date()
+    # Render the fee detail template
+    return render(request, 'view_admin_cs4_transaction.html', {
+        'trans4_record': trans4_record,
+        'current_date': current_date,
+    })
+
+
+
+logger = logging.getLogger(__name__)
+
+def student_fee_details_view(request, id_number):
+    # Get the fee records for each year
+    fees1 = CS_Fees1.objects.filter(id_number=id_number)
+    fees2 = CS_Fees2.objects.filter(id_number=id_number)
+    fees3 = CS_Fees3.objects.filter(id_number=id_number)
+    fees4 = CS_Fees4.objects.filter(id_number=id_number)
+
+    # Get the student's name (assuming the name is the same across all years)
+    student_name = fees1.first().student_name if fees1.exists() else None
+
+    # Calculate the total balance for each year by subtracting amount_paid from cost_of_program
+    total_balance_1 = fees1.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] - fees1.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
+    total_balance_2 = fees2.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] - fees2.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
+    total_balance_3 = fees3.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] - fees3.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
+    total_balance_4 = fees4.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] - fees4.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
+
+    # Calculate the total balance across all years
+    total_balance = total_balance_1 + total_balance_2 + total_balance_3 + total_balance_4
+
+    # Log the total balance for debugging
+    logger.info(f"Total balance for student {id_number} ({student_name}): {total_balance}")
+
+    # Log the amount_paid for debugging
+    for fee in fees1:
+        logger.info(f"First Year - {fee.student_name}: Amount Paid - {fee.amount_paid}, Paid Fees - {fee.paid_fees}")
+
+    # Organize the fee details
+    fee_details = [
+        ('First Year', fees1),
+        ('Second Year', fees2),
+        ('Third Year', fees3),
+        ('Final Year', fees4),
+    ]
+
+    # Pass fee details, student_name, and total balance to the template
+    context = {
+        'fee_details': fee_details,
+        'student_id': id_number,
+        'student_name': student_name,
+        'total_balance': total_balance,  # Add total balance to context
+    }
+    return render(request, 'student_fee_details.html', context)
+
+
+
+
+
+logger = logging.getLogger(__name__)
+
+def student_fee_report_view(request):
+    # Get all fee records for each year
+    fees1 = CS_Fees1.objects.all()
+    fees2 = CS_Fees2.objects.all()
+    fees3 = CS_Fees3.objects.all()
+    fees4 = CS_Fees4.objects.all()
+
+    # Calculate total amount paid for each year
+    total_paid_1 = fees1.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
+    total_paid_2 = fees2.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
+    total_paid_3 = fees3.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
+    total_paid_4 = fees4.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
+
+    # Calculate total balance for each year (cost_of_program - amount_paid)
+    total_balance_1 = fees1.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] - total_paid_1 or 0
+    total_balance_2 = fees2.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] - total_paid_2 or 0
+    total_balance_3 = fees3.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] - total_paid_3 or 0
+    total_balance_4 = fees4.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] - total_paid_4 or 0
+
+    # Calculate total amount paid across all years
+    total_paid_all_years = total_paid_1 + total_paid_2 + total_paid_3 + total_paid_4
+
+    # Calculate total balance across all years
+    total_balance_all_years = total_balance_1 + total_balance_2 + total_balance_3 + total_balance_4
+
+    # Log the reports for debugging
+    logger.info(f"Total Amount Paid (All Years) for all students: {total_paid_all_years}")
+    logger.info(f"Total Balance (All Years) for all students: {total_balance_all_years}")
+
+    # Log the amounts for each year
+    logger.info(f"Total Amount Paid for First Year: {total_paid_1}")
+    logger.info(f"Total Amount Paid for Second Year: {total_paid_2}")
+    logger.info(f"Total Amount Paid for Third Year: {total_paid_3}")
+    logger.info(f"Total Amount Paid for Final Year: {total_paid_4}")
+
+    logger.info(f"Total Balance for First Year: {total_balance_1}")
+    logger.info(f"Total Balance for Second Year: {total_balance_2}")
+    logger.info(f"Total Balance for Third Year: {total_balance_3}")
+    logger.info(f"Total Balance for Final Year: {total_balance_4}")
+
+    # Organize the fee report details for rendering
+    fee_report_details = [
+        ('First Year', total_paid_1, total_balance_1),
+        ('Second Year', total_paid_2, total_balance_2),
+        ('Third Year', total_paid_3, total_balance_3),
+        ('Final Year', total_paid_4, total_balance_4),
+    ]
+
+    # Pass the data to the template for rendering
+    context = {
+        'fee_report_details': fee_report_details,
+        'total_paid_all_years': total_paid_all_years,
+        'total_balance_all_years': total_balance_all_years,
+    }
+
+    return render(request, 'student_fee_report.html', context)
+
+
+
+def fee_status_report_view(request):
+    # Fetch all fee records for each year separately
+    fees1 = CS_Fees1.objects.all()
+    fees2 = CS_Fees2.objects.all()
+    fees3 = CS_Fees3.objects.all()
+    fees4 = CS_Fees4.objects.all()
+
+    # Combine all records in Python (not at the database level)
+    all_fees = list(fees1) + list(fees2) + list(fees3) + list(fees4)
+
+    # Filter students who have fully paid their fees (assuming `payment_status` is 'Full Paid')
+    full_paid_students = [fee for fee in all_fees if fee.payment_status == 'Full Paid']
+
+    # Filter students who have incomplete payments (assuming `payment_status` is 'Incomplete' or balance > 0)
+    incomplete_payment_students = [
+        fee for fee in all_fees if fee.payment_status == 'Incomplete' or fee.balance() > 0  # Call balance() if it's a method
+    ]
+
+    # Log the number of students in each category for debugging purposes
+    logger.info(f"Full Paid Students: {len(full_paid_students)}")
+    logger.info(f"Incomplete Payment Students: {len(incomplete_payment_students)}")
+
+    # Prepare context for rendering
+    context = {
+        'full_paid_students': full_paid_students,
+        'incomplete_payment_students': incomplete_payment_students,
+    }
+
+    return render(request, 'fee_status_report.html', context)
+
+

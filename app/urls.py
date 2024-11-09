@@ -65,6 +65,23 @@ urlpatterns = [
     path('view_cs4_transaction/<int:trans_id>/', views.view_cs4_transaction, name='view_cs4_transaction'),
 
 
-        path('cs1_fees_status/', views.cs1_fees_status, name='cs1_fees_status'),
+    path('cs_fees_status/', views.cs_fees_status, name='cs_fees_status'),
+
+    path('admin_cs1_transaction/', views.admin_cs1_transaction, name='admin_cs1_transaction'),
+    path('admin_cs2_transaction/', views.admin_cs2_transaction, name='admin_cs2_transaction'),
+    path('admin_cs3_transaction/', views.admin_cs3_transaction, name='admin_cs3_transaction'),
+    path('admin_cs4_transaction/', views.admin_cs4_transaction, name='admin_cs4_transaction'),
+    path('view_admin_cs1_transaction/<int:trans_id>/', views.view_admin_cs1_transaction, name='view_admin_cs1_transaction'),
+    path('view_admin_cs2_transaction/<int:trans_id>/', views.view_admin_cs2_transaction, name='view_admin_cs2_transaction'),
+    path('view_admin_cs3_transaction/<int:trans_id>/', views.view_admin_cs3_transaction, name='view_admin_cs3_transaction'),
+    path('view_admin_cs4_transaction/<int:trans_id>/', views.view_admin_cs4_transaction, name='view_admin_cs4_transaction'),
+
+    # path('students/', views.all_students_view, name='all_students'),
+    path('students/<str:id_number>/', views.student_fee_details_view, name='student_fee_details'),
+    path('fee-report/', views.student_fee_report_view, name='student_fee_report'),
+    path('fee-status-report/', views.fee_status_report_view, name='fee_status_report'),
+
+
+
 
 ]
