@@ -80,6 +80,8 @@ urlpatterns = [
     path('students/<str:id_number>/', views.student_fee_details_view, name='student_fee_details'),
     path('fee-report/', views.student_fee_report_view, name='student_fee_report'),
     path('fee-status-report/', views.fee_status_report_view, name='fee_status_report'),
+    path('generate-paid-pdf/<str:year>/', views.generate_paid_pdf_by_year, name='generate_paid_pdf_by_year'),
+    path('generate-incomplete-pdf/<str:year>/', views.generate_incomplete_pdf_by_year, name='generate_incomplete_pdf_by_year'),
 
 
 

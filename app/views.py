@@ -11,16 +11,85 @@ from django.core.exceptions import ValidationError # type: ignore
 from django.utils.dateparse import parse_date # type: ignore
 from django.utils.dateparse import parse_date # type: ignore
 import logging
+from django.http import HttpResponse
+from xhtml2pdf import pisa
+from django.template.loader import get_template
+from django.db.models import F
+import logging
+from django.contrib.auth.models import User
+from django.db.models import Q
 
 
 def first_home(request):
     return render(request, 'first_home.html')
 
+
+
+
 def main_home(request):
-    return render(request, 'main_home.html')
+    users = User.objects.all().count()
+    programs = Programs.objects.all().count()
+    departments = Department.objects.all().count()
+
+    # Count the students who have made any payment (have a non-null amount_paid or paid_fees)
+    # We will check each year (CS_Fees1 to CS_Fees4) to see if they have made a payment (i.e., non-null amount_paid)
+
+    # Get students who have made payments in year 1
+    paid_year1 = CS_Fees1.objects.exclude(amount_paid=None).values_list('id_number', flat=True)
+
+    # Get students who have made payments in year 2
+    paid_year2 = CS_Fees2.objects.exclude(amount_paid=None).values_list('id_number', flat=True)
+
+    # Get students who have made payments in year 3
+    paid_year3 = CS_Fees3.objects.exclude(amount_paid=None).values_list('id_number', flat=True)
+
+    # Get students who have made payments in year 4
+    paid_year4 = CS_Fees4.objects.exclude(amount_paid=None).values_list('id_number', flat=True)
+
+    # Combine the paid students from all years and remove duplicates by converting to a set
+    paid_students = set(paid_year1) | set(paid_year2) | set(paid_year3) | set(paid_year4)
+
+    # Get the number of students who have made any payment
+    paid_students_count = len(paid_students)
+
+    context = {
+        'users': users,
+        'programs': programs,
+        'departments': departments,
+        'paid_students_count': paid_students_count,  # Add the count of paid students to context
+    }
+
+    return render(request, 'main_home.html', context)
+
+
+
+
+
 
 def main_second_home(request):
-    return render(request, 'main_second_home.html')
+    users = User.objects.all().count()
+    paid_year1 = CS_Fees1.objects.exclude(amount_paid=None).values_list('id_number', flat=True)
+
+    # Get students who have made payments in year 2
+    paid_year2 = CS_Fees2.objects.exclude(amount_paid=None).values_list('id_number', flat=True)
+
+    # Get students who have made payments in year 3
+    paid_year3 = CS_Fees3.objects.exclude(amount_paid=None).values_list('id_number', flat=True)
+
+    # Get students who have made payments in year 4
+    paid_year4 = CS_Fees4.objects.exclude(amount_paid=None).values_list('id_number', flat=True)
+
+    # Combine the paid students from all years and remove duplicates by converting to a set
+    paid_students = set(paid_year1) | set(paid_year2) | set(paid_year3) | set(paid_year4)
+
+    # Get the number of students who have made any payment
+    paid_students_count = len(paid_students)
+
+    context = {
+        'users':users,
+        'paid_students_count':paid_students_count,
+    }
+    return render(request, 'main_second_home.html',context)
 
 
 
@@ -1384,6 +1453,8 @@ def view_admin_cs4_transaction(request, trans_id):
 
 
 
+
+
 logger = logging.getLogger(__name__)
 
 def student_fee_details_view(request, id_number):
@@ -1397,10 +1468,10 @@ def student_fee_details_view(request, id_number):
     student_name = fees1.first().student_name if fees1.exists() else None
 
     # Calculate the total balance for each year by subtracting amount_paid from cost_of_program
-    total_balance_1 = fees1.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] - fees1.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
-    total_balance_2 = fees2.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] - fees2.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
-    total_balance_3 = fees3.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] - fees3.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
-    total_balance_4 = fees4.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] - fees4.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0
+    total_balance_1 = (fees1.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] or 0) - (fees1.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0)
+    total_balance_2 = (fees2.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] or 0) - (fees2.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0)
+    total_balance_3 = (fees3.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] or 0) - (fees3.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0)
+    total_balance_4 = (fees4.aggregate(Sum('cost_of_program__program_fees'))['cost_of_program__program_fees__sum'] or 0) - (fees4.aggregate(Sum('amount_paid'))['amount_paid__sum'] or 0)
 
     # Calculate the total balance across all years
     total_balance = total_balance_1 + total_balance_2 + total_balance_3 + total_balance_4
@@ -1524,4 +1595,109 @@ def fee_status_report_view(request):
 
     return render(request, 'fee_status_report.html', context)
 
+
+
+
+
+
+def generate_paid_pdf_by_year(request, year):
+    # Determine the model based on the year
+    fees_model = {
+        '1': CS_Fees1,
+        '2': CS_Fees2,
+        '3': CS_Fees3,
+        '4': CS_Fees4,
+    }.get(year)
+
+    if not fees_model:
+        return HttpResponse('Invalid year', status=400)
+
+    # Fetch students who have fully paid for the given year
+    fully_paid_students = fees_model.objects.filter(payment_status='Full Paid')
+
+    # Collect the required fields for each fully paid student
+    students_fully_paid = []
+    for student in fully_paid_students:
+        print(f"Student: {student.student_name}, Amount Paid: {student.amount_paid}, Paid Fees: {student.paid_fees}, Program: {student.program}")
+        students_fully_paid.append({
+            'student_name': student.student_name,
+            'program': student.program,
+            'cost_of_program': student.cost_of_program,
+            'amount_paid': student.amount_paid,
+            'payment_status': student.payment_status
+        })
+
+    # Check if there are any fully paid students to display
+    if not students_fully_paid:
+        return HttpResponse('No fully paid students found')
+
+    # Render the template with the fully paid students data
+    template = get_template('fully_paid_students_pdf.html')
+    context = {
+        'students': students_fully_paid,
+        'year': year
+    }
+    html_content = template.render(context)
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="fully_paid_students_year_{year}.pdf"'
+
+    # Convert HTML to PDF using xhtml2pdf
+    pisa_status = pisa.CreatePDF(html_content, dest=response)
+
+    if pisa_status.err:
+        return HttpResponse('Error generating PDF', status=500)
+
+    return response
+
+
+
+
+
+def generate_incomplete_pdf_by_year(request, year):
+    # Determine the model based on the year
+    fees_model = {
+        '1': CS_Fees1,
+        '2': CS_Fees2,
+        '3': CS_Fees3,
+        '4': CS_Fees4,
+    }.get(year)
+
+    if not fees_model:
+        return HttpResponse('Invalid year', status=400)
+
+    # Fetch students with incomplete payments for the given year
+    incomplete_paid_students = fees_model.objects.exclude(payment_status='Full Paid').annotate(
+        balance=F('paid_fees') - F('amount_paid')
+    )
+
+    # Collect required fields for each student, including balance
+    students_with_balance = []
+    for student in incomplete_paid_students:
+        print(f"Student: {student.student_name}, Amount Paid: {student.amount_paid}, Paid Fees: {student.paid_fees}, Balance: {student.balance}")
+        students_with_balance.append({
+            'student_name': student.student_name,
+            'program': student.program,
+            'cost_of_program': student.cost_of_program,
+            'amount_paid': student.amount_paid,
+            'balance': student.balance,
+            'payment_status': student.payment_status
+        })
+
+    # Render the template with the student data
+    template = get_template('incomplete_paid_students_pdf.html')
+    context = {
+        'students': students_with_balance,
+        'year': year
+    }
+    html_content = template.render(context)
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="incomplete_paid_students_year_{year}.pdf"'
+
+    pisa_status = pisa.CreatePDF(html_content, dest=response)
+
+    if pisa_status.err:
+        return HttpResponse('Error generating PDF', status=500)
+    return response
 

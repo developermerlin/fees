@@ -92,171 +92,196 @@
 
 </header><!-- End Header -->
 
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+<aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+  <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
-        <a class="nav-link " href="{% url 'main_home' %}">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
+    <li class="nav-item">
+      <a class="nav-link " href="{% url 'main_home' %}">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
 
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav1" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Fees Transaction History</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-          <div class="btn-group w-100">
-            <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              COM SCIENCE FEES
-            </button>
-            <div class="dropdown-menu dropdown-menu-right w-100">
-              <a href="{% url 'cs1_transaction' %}">
-                <i class="bi bi-circle"></i><span>Year 1 Fees</span>
-              </a>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav1" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-bar-chart"></i><span>Fees Transaction History</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-              <a href="{% url 'cs2_transaction' %}">
-                <i class="bi bi-circle"></i><span>Year 2 Fees</span>
-              </a>
+        <div class="btn-group w-100">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            COM SCIENCE FEES
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="{% url 'admin_cs1_transaction' %}">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+            </a>
 
-              <a href="{% url 'cs3_transaction' %}">
-                <i class="bi bi-circle"></i><span>Year 3 Fees</span>
-              </a>
+            <a href="{% url 'admin_cs2_transaction' %}">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+            </a>
 
-              <a href="{% url 'cs4_transaction' %}">
-                <i class="bi bi-circle"></i><span>Year 4 Fees</span>
-              </a>
-              
-            </div>
+            <a href="{% url 'admin_cs3_transaction' %}">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+            </a>
+
+            <a href="{% url 'admin_cs4_transaction' %}">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+            </a>
+            
           </div>
-        </ul>
-      </li><!-- End Charts Nav -->
+        </div>
+      </ul>
+    </li><!-- End Charts Nav -->
 
 
 
 
 
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Student Fees Status</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-bar-chart"></i><span>Student Fees Status</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-          <div class="btn-group w-100">
-            <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              COM SCIENCE FEES
-            </button>
-            <div class="dropdown-menu dropdown-menu-right w-100">
-              <a href="{% url 'cs_fees_status' %}">
-                <i class="bi bi-circle"></i><span>Year 1 Fees</span>
-              </a>
+        <div class="btn-group w-100">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            COM SCIENCE FEES
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="{% url 'cs_fees_status' %}">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+            </a>
 
-              <a href="">
-                <i class="bi bi-circle"></i><span>Year 2 Fees</span>
-              </a>
+            <!-- <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+            </a>
 
-              <a href="">
-                <i class="bi bi-circle"></i><span>Year 3 Fees</span>
-              </a>
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+            </a>
 
-              <a href="">
-                <i class="bi bi-circle"></i><span>Year 4 Fees</span>
-              </a>
-              
-            </div>
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+            </a> -->
+            
           </div>
-        </ul>
-      </li><!-- End Charts Nav -->
+        </div>
+      </ul>
+    </li><!-- End Charts Nav -->
 
-   
-      
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav3" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-bar-chart"></i><span>Total Fees Report</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav3" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-    </ul>
+        <div class="btn-group w-100">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            total Fees Report
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="{% url 'student_fee_report' %}">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+            </a>
 
-  </aside><!-- End Sidebar-->
+            <!-- <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span> -->
+            </a>
+            
+          </div>
+        </div>
+      </ul>
+    </li><!-- End Charts Nav -->
+
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav4" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-bar-chart"></i><span>Generate Status Report</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav4" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+        <div class="btn-group w-100">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Gen Status Report
+          </button>
+          <div class="dropdown-menu dropdown-menu-right w-100">
+            <a href="{% url 'fee_status_report' %}">
+              <i class="bi bi-circle"></i><span>Year 1 Fees</span>
+            </a>
+
+            <!-- <a href="">
+              <i class="bi bi-circle"></i><span>Year 2 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 3 Fees</span>
+            </a>
+
+            <a href="">
+              <i class="bi bi-circle"></i><span>Year 4 Fees</span>
+            </a> -->
+            
+          </div>
+        </div>
+      </ul>
+    </li><!-- End Charts Nav -->
+    
+
+  </ul>
+
+</aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
   
 
-    <div class="container mt-5">
-      <h1 class="text-center">Fee Payment Status Report</h1>
+    <div class="card" style="width: 100%">
+      <div class="card-body">
+        <div class="container">
+          <h1 style="text-align: center; margin-bottom: 100px;"> Computer Science Students Yearly Fees Report</h1>
 
-      <!-- Full Paid Students -->
-      <div class="row mt-5">
-          <div class="col-md-12">
-              <h3>Full Paid Students</h3>
-              <table class="table table-bordered">
-                  <thead>
-                      <tr>
-                          <th>Student Name</th>
-                          <th>Program</th>
-                          <th>Year</th>
-                          <th>Amount Paid</th>
-                          <th>Payment Status</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      {% for fee in full_paid_students %}
-                          <tr>
-                              <td>{{ fee.student_name }}</td>
-                              <td>{{ fee.program.program_name }}</td>
-                              <td>{{ fee.level }}</td>
-                              <td>Nle {{ fee.amount_paid }}</td>
-                              <td>{{ fee.payment_status }}</td>
-                          </tr>
-                      {% empty %}
-                          <tr>
-                              <td colspan="5" class="text-center">No full paid students found.</td>
-                          </tr>
-                      {% endfor %}
-                  </tbody>
-              </table>
-          </div>
-      </div>
 
-      <!-- Incomplete Payment Students -->
-      <div class="row mt-5">
-          <div class="col-md-12">
-              <h3>Incomplete Payment Students</h3>
-              <table class="table table-bordered">
-                  <thead>
-                      <tr>
-                          <th>Student Name</th>
-                          <th>Program</th>
-                          <th>Year</th>
-                          <th>Amount Paid</th>
-                          <th>Balance</th>
-                          <th>Payment Status</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      {% for fee in incomplete_payment_students %}
-                          <tr>
-                              <td>{{ fee.student_name }}</td>
-                              <td>{{ fee.program.program_name }}</td>
-                              <td>{{ fee.level }}</td>
-                              <td>Nle {{ fee.amount_paid }}</td>
-                              <td>Nle {{ fee.balance }}</td>
-                              <td>{{ fee.payment_status }}</td>
-                          </tr>
-                      {% empty %}
-                          <tr>
-                              <td colspan="6" class="text-center">No incomplete payment students found.</td>
-                          </tr>
-                      {% endfor %}
-                  </tbody>
-              </table>
-          </div>
-      </div>
+
+
+<h3 style="margin-top: 20px;">Generate Students Yearly Fees</h3>
+
+<div class="row">
+  <div class="col-md-6">
+    <a href="{% url 'generate_incomplete_pdf_by_year' '1' %}" class="btn btn-secondary w-50 mt-3 "  style="height: 60px;" >Year 1</a>
   </div>
+  <div class="col-md-6">
+    <a href="{% url 'generate_incomplete_pdf_by_year' '2' %}" class="btn btn-secondary w-50 mt-3 "  style="height: 60px;  margin-left: -250px;">Year 2</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <a href="{% url 'generate_incomplete_pdf_by_year' '3' %}" class="btn btn-secondary w-50 mt-3 "  style="height: 60px;">Year 3</a>
+  </div>
+  <div class="col-md-6">
+    <a href="{% url 'generate_incomplete_pdf_by_year' '4' %}" class="btn btn-secondary w-50 mt-3 "  style="height: 60px;  margin-left: -250px;">Year 4</a>
+  </div>
+</div>
+
+
+
+    
+        </div>
+      </div>
+    </div>
     
     <script>
       // Function to handle printing the card content

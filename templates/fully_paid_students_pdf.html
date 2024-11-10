@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Fees Management System</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img1/cusl.png' %}" rel="icon">
+  <link href="{% static 'img1/cusl.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="}https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor1/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor1/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor1/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor1/quill/quill.snow.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor1/quill/quill.bubble.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor1/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor1/simple-datatables/style.css' %}" rel="stylesheet">
+
+
+  <link href="{% static 'css1/style.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+ <!-- ======= Header ======= -->
+ 
+
+  <main id="main" class="main">
+
+  
+
+    <div class="header">
+      <h1> Computer Science Fully Paid Students Report - Year {{ year }}</h1>
+  </div>
+  <table class="table datatable">
+    <thead>
+      <tr>
+        <th style="font-size: 14px; text-align: center;">No</th>
+        <th style="font-size: 14px; text-align: center;">Student Name</th>
+        <th style="font-size: 14px; text-align: center;">Program</th>
+        <th style="font-size: 14px; text-align: center;">Program Cost</th>
+        <th style="font-size: 14px; text-align: center;">Amount Paid</th>
+        <!-- <th style="font-size: 14px; text-align: center;">Balance</th> -->
+        <!-- <th>Date Paid</th> -->
+        <th style="font-size: 14px; text-align: center;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in students %}
+      <tr>
+        
+        <td style="text-align: center;">{{forloop.counter}}</td>
+        <td style="font-size: 14px;">{{ student.student_name }}</td>
+        <td style="font-size: 14px;">{{ student.program }}</td>
+        <td style="text-align: center; font-size: 14px;">Nle{{student.cost_of_program.program_fees}}</td>
+        <td style="text-align: center; font-size: 14px;">{{ student.amount_paid }}</td>
+        <!-- <td style="text-align: center; font-size: 14px;">Nle{{ student.balance_due }}</td> -->
+        <td style="text-align: center; font-size: 14px;">{{ student.payment_status }}</td>
+
+        
+      </tr>
+
+    {% endfor %}
+    </tbody>
+  </table>
+    
+
+   
+        
+    
+        
+    
+    
+    
+
+   
+  </main><!-- End #main -->
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor1/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'vendor1/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor1/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'vendor1/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'vendor1/quill/quill.js' %}"></script>
+  <script src="{% static 'vendor1/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'vendor1/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'vendor1/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js1/main.js' %}"></script>
+
+</body>
+
+</html>
